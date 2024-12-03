@@ -614,8 +614,8 @@ The following inputs are private to reduce proof size:
 - `Extract` **Extraction Function** extracts 14 public inputs from a proof, validates the result matches the rollup’s inner public inputs
 - `Aggregate` **Proof Aggregation Function** for ultimate batch verification outside the circuit, given a verification key and (optional, defined by 4th input parameter) a previous output of Aggregate. Returns a BN254 point pair
 - `NonMembershipUpdate` **Nullifier Update Function** checks a nullifier is not in a nullifier set given its root, then inserts the nullifier and validates the correctness of the associated merkle root update
-- `BatchUpdate` **Batch Update Function** inserts a set of compressed note commitments into the data tree and validates the corretness of the associated merkle root update
-  Update - inserts a single leaf into the root tree and validates the corretness of the associated merkle root update
+- `BatchUpdate` **Batch Update Function** inserts a set of compressed note commitments into the data tree and validates the correctness of the associated merkle root update
+  Update - inserts a single leaf into the root tree and validates the correctness of the associated merkle root update
 
 ### ◈ Circuit Logic (Pseudocode)
 
