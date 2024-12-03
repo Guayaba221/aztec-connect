@@ -12,7 +12,7 @@ In order to achieve this it implements the following number of software modules/
 - An HTTP service providing a number of endpoints allowing clients to query the current state of the system, download historical published rollup data, request transaction fees, submit new transactions to be included in a later rollup and administrative functions like configuration updates.
 - A SQL database storing all historical rollup data and all transactions yet to be included within a rollup
 - Blockchain connectivity and contract abstractions for querying historically published rollups, submitting new rollups and reading on-chain configuration data such as permitted assets and bridge contracts
-- World state reconciliation periodically quering the rollup contract for published rollups and updating the persisted store of rollup data and Merkle tree state
+- World state reconciliation periodically querying the rollup contract for published rollups and updating the persisted store of rollup data and Merkle tree state
 - A companion process, 'db_cli' which it automatically starts and communicates with via stdio. db_cli is an efficient Merkle tree implementation using level db for persistence
 - A file system used to store Merkle Tree state and runtime configuration
 - Transaction fee computation based off current gas price and asset price valuations
@@ -32,7 +32,7 @@ Falafel configuration is composed of 2 parts, `StartupConfig` and `RuntimeConfig
 `DATA_DIR` specifies the directory that Falafel uses for all of it's non PostgresDB persistence.
 `INITIAL_RUNTIME_CONFIG_PATH` specifies a file that contains initial runtime configuration. This is useful in test environments.
 
-The following detail these two sets of parameters and the environment variables used to specify them at startup. Most of the `RuntimeConfig` values are not set by environment variable. Instead, they adopt a default value and can be updated by an administrative call to the `/runtime-config` http enpoint.
+The following detail these two sets of parameters and the environment variables used to specify them at startup. Most of the `RuntimeConfig` values are not set by environment variable. Instead, they adopt a default value and can be updated by an administrative call to the `/runtime-config` http endpoint.
 
 ```
 interface StartupConfig {
@@ -125,7 +125,7 @@ The following sections will provide more detail around some of the software comp
 
 ## Proof Construction
 
-Proof construction can be performed 'locally' within Falafel, by specifying `local` as the value of the `PROOF_GENERATOR_MODE` environment variable. Alternatively it can use seperate instances of the 'Halloumi' service. When using seperate instances, this can further be configured as `split` mode or `normal`.
+Proof construction can be performed 'locally' within Falafel, by specifying `local` as the value of the `PROOF_GENERATOR_MODE` environment variable. Alternatively it can use separate instances of the 'Halloumi' service. When using separate instances, this can further be configured as `split` mode or `normal`.
 
 When configured in `normal` mode, an additional HTTP server will be created on port 8082. All corresponding halloumi instances will need to have their `JOB_SERVER_URL` configuration set with a port of 8082.
 
@@ -139,7 +139,7 @@ Falafel needs to remain in sync with state as it changes on-chain. It does this 
 
 Falafel expects the RPC endpoint implementation to have an efficiently indexed store of events, such as the Kebab service or a managed Geth node operator such as Infura.
 
-Within the repository is a module called `earliest_block`. This contains hardocded configuration for the 'start' block of varous environments. The purpose of this value is twofold:
+Within the repository is a module called `earliest_block`. This contains hardocded configuration for the 'start' block of various environments. The purpose of this value is twofold:
 
 1. On forked environmentts such as Testnet it provides the fork block number.
 2. On all environments it provides a marker from which the system will begin searching for events emitted from the `RollupProcessor` contract.
@@ -221,7 +221,7 @@ Once the set of defi deposits against a fully specified bridge interaction have 
 
 ## Monitoring
 
-There are 2 primary methods of monitoring. Firslty, the application writes log messages to the console. Secondly it implements a number of (https://prometheus.io/) based metrics which can be accessed and visualised with a prometheus/grafana setup.
+There are 2 primary methods of monitoring. Firstly, the application writes log messages to the console. Secondly it implements a number of (https://prometheus.io/) based metrics which can be accessed and visualised with a prometheus/grafana setup.
 
 ## Example Configuration
 
